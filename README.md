@@ -1,12 +1,15 @@
 # dotfiles
 
-Inspired from my the following dotfiles of [mathiasbynens](https://github.com/mathiasbynens/dotfiles) and [holman](https://github.com/holman/dotfiles) on GitHub.
+Inspired from the following dotfiles of [mathiasbynens](https://github.com/mathiasbynens/dotfiles) and [holman](https://github.com/holman/dotfiles) on GitHub.
 
-However, I like to switch between bash and zsh. Therefore, wanted it to be tailored for my needs. 
+However, I was previously a bash user who has converted to zsh.
 
-**CURRENTLY USING ZSH.**
+# programs being used
 
-# repos
+- [iterm2](https://www.iterm2.com/)
+- [zsh](http://www.zsh.org/)
+
+# forks of the inspiration
 
 - [hubwub fork of holman/dotfiles](https://github.com/hubwub/holman-dotfiles)
 - [hubwub fork of
