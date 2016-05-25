@@ -6,7 +6,7 @@ atom.symlink/packages
 atom.symlink/storage
 atom.symlink/themes
 atom.symlink/.apm
-git/gitconfig.symlink
+git/gitconfig.local.symlink
 vim/vim.symlink/.netrwhist
 vim/vim.symlink/autoload/*
 vim/vim.symlink/bundle/*
