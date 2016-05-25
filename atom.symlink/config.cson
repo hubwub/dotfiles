@@ -1,0 +1,78 @@
+"*":
+  "atom-beautify":
+    _analyticsUserId: "7b212e81-1508-48ca-8033-1c5f0f24f505"
+    cpp_configPath: "/Users/anne/development/objc-uncrustify.cfg"
+    css_preserve_newlines: true
+    general:
+      _analyticsUserId: "4345a4ba-cb0c-4487-9f71-93bb15a1b99b"
+  "auto-update-packages": {}
+  "autocomplete-plus": {}
+  "base16-syntax":
+    scheme: "Isotope"
+  "clang-format": {}
+  core:
+    disabledPackages: [
+      "background-tips"
+      "exception-reporting"
+      "metrics"
+    ]
+    excludeVcsIgnoredPaths: false
+    ignoredNames: [
+      ".bundle"
+      ".git"
+      "log"
+      "repositories"
+      "tmp"
+      "vendor"
+    ]
+    projectHome: "/Users/anne/development"
+  editor:
+    fontFamily: "Meslo LG M"
+    fontSize: 12
+    invisibles: {}
+    showIndentGuide: true
+    softWrap: true
+    softWrapAtPreferredLineLength: true
+  emmet: {}
+  "go-plus": {}
+  "isotope-ui":
+    backgroundColor: "false"
+    customBackgroundColorPicker:
+      alpha: 1
+      blue: 0
+      green: 0
+      red: 0
+    fontFamily: "System Default"
+    fontWeight: "Regular"
+    matchEditorFont: true
+  linter:
+    subtleLinterErrors: [
+      "flake8"
+    ]
+  "linter-csslint": {}
+  "linter-flake8": {}
+  minimap:
+    plugins:
+      "git-diff": true
+      "git-diffDecorationsZIndex": 0
+  "one-dark-ui": {}
+  "release-notes":
+    viewedVersion: "0.89.0"
+  "remember-session":
+    height: 841
+    treeWidth: 200
+    width: 1440
+    x: 0
+    y: 23
+  "spell-check":
+    grammars: [
+      "text.plain"
+      "source.gfm"
+      "text.git-commit"
+    ]
+  "tree-view": {}
+  "vim-mode": {}
+  welcome:
+    showOnStartup: false
+  "wrap-guide":
+    enabled: false
