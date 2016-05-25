@@ -1,29 +1,13 @@
 atom.symlink/.node-gyp
 atom.symlink/.storage
+atom.symlink/blob-store
 atom.symlink/compile-cache/
 atom.symlink/packages
 atom.symlink/storage
 atom.symlink/themes
-
+atom.symlink/.apm
 git/gitconfig.symlink
-
+vim/vim.symlink/.netrwhist
+vim/vim.symlink/autoload/*
+vim/vim.symlink/bundle/*
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon^M^M
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
