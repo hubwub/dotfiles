@@ -1,1 +1,1 @@
-alias clfg="clang-format-3.6 **/*.h **/*.cpp -i -style=google"
+alias clfg="clang-format **/*.h **/*.cpp -i -style=google"
