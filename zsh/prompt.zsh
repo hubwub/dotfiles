@@ -52,10 +52,10 @@ ruby_version() {
     echo "$(rbenv version | awk '{print $1}')"
   fi
 
-  if (( $+commands[rvm-prompt] ))
-  then
-    echo "$(rvm-prompt | awk '{print $1}')"
-  fi
+  # if (( $+commands[rvm-prompt] ))
+  # then
+  #   echo "$(rvm-prompt | awk '{print $1}')"
+  # fi
 }
 
 rb_prompt() {
