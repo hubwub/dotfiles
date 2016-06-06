@@ -21,6 +21,9 @@ set-option -g base-index 1
 # Renumber windows when a window is closed
 set-option -g renumber-windows on
 
+# Don't rename windows automatically
+set-option -g allow-rename off
+
 # History
 set-option -g history-limit 102400
 
@@ -91,10 +94,6 @@ bind-key -t vi-copy 'y' copy-pipe "pbcopy"
 bind-key C-c run 'tmux capture-pane -S -102400 -p > /tmp/tmux-capture.txt'\;\
              new-window "view /tmp/tmux-capture.txt"
 bind-key M-c run "screencapture -l$(osascript -e 'tell app \"iTerm\" to id of window 1') -x -o -P /tmp/$(date +%Y%m%d-%H%M%S).png"
-
-# Notes
-bind-key C-n if-shell "tmux select-window -t NOTES" "" \
-  "new-window -n NOTES 'bash -i ~/gdrive/sync/notes/list'"
 
 # -------------------------------------------------------------------
 # Decoration (256-color)
