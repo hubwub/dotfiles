@@ -21,9 +21,9 @@ user() {
 # Host
 host() {
   if [[ $SSH_CONNECTION ]]; then
-    echo -n "$(_user)%B@%b%{$fg_bold[green]%}%m%{$reset_color%}"
+    echo -n "$(user)%B@%b%{$fg_bold[green]%}%m%{$reset_color%}"
   elif [[ $LOGNAME != $USER ]] || [[ $USER == 'root' ]]; then
-    echo -n "$(_user)%{$reset_color%}"
+    echo -n "$(user)%{$reset_color%}"
   fi
 }
 
@@ -69,7 +69,55 @@ need_push () {
   fi
 }
 
-export PROMPT=$'$(host)\n$(directory_name)$(git_dirty)$(need_push)\n%{$fg_bold[magenta]%}› '
+node_version() {
+  PROJECT=$(npm list | grep 'empty')
+  if [[ $PROJECT == *"empty"* ]]
+  then
+    # Do Nothing
+  else
+    if (( $+commands[node] ))
+    then
+      echo "$(node --version | awk '{print $1}')"
+    fi
+  fi
+}
+
+node_prompt() {
+  if ! [[ -z "$(node_version)" ]]
+  then
+    echo "%{$fg_bold[yellow]%}node-$(node_version) %{$reset_color%}"
+  else
+    echo ""
+  fi
+}
+
+ruby_version() {
+  PROJECT=$(bundle list | grep 'rail')
+
+  if [[ $PROJECT == *"rail"* ]]
+  then
+    if (( $+commands[rbenv] ))
+    then
+      echo "$(rbenv version | awk '{print $1}')"
+    fi
+  fi
+
+  # if (( $+commands[rvm-prompt] ))
+  # then
+  #   echo "$(rvm-prompt | awk '{print $1}')"
+  # fi
+}
+
+ruby_prompt() {
+  if ! [[ -z "$(ruby_version)" ]]
+  then
+    echo "%{$fg_bold[yellow]%}$(ruby_version) %{$reset_color%}"
+  else
+    echo ""
+  fi
+}
+
+export PROMPT=$'\n$(directory_name)$(git_dirty)$(need_push)\n%{$fg_bold[magenta]%}› '
 
 set_prompt () {
   export RPROMPT="%{$fg[cyan]%}%{$reset_color%}"

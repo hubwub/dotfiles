@@ -7,19 +7,24 @@ then
 fi
 
 # The rest of my fun git aliases
-alias gl='git pull --prune'
-alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-alias gp='git push origin HEAD'
+alias ga='git add'
+alias gp='git push'
+alias gl='git log'
+alias gpp='git pull --prune'
+alias gpu="git pull"
+alias gsp="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --since '1 week ago' --author 'Anne' --all"
+alias gpl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gf="git reflog"
 alias gd='git diff'
 alias gc='git commit'
 alias gca='git commit -a'
-alias gco='git checkout'
-alias gcb='git copy-branch-name'
+alias gcam='git commit -am'
 alias gb='git branch'
+alias gco='git checkout'
+alias gcb='git checkout -b'
 alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
 alias grsh='git reset --soft HEAD'
 alias grhh='git reset --hard HEAD'
-alias gsp="git log --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --since '1 week ago' --author 'Anne' --all"
 
 # upstream fetch of forked repos
 guf(){
