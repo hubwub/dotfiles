@@ -1,6 +1,4 @@
 autoload colors && colors
-# cheers, @ehrenmurdick
-# http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
 
 if (( $+commands[git] ))
 then
@@ -9,28 +7,53 @@ else
   git="/usr/bin/git"
 fi
 
+# Information
+# Username
+user() {
+  if [[ $USER == 'root' ]]; then
+    echo -n "%{$fg_bold[red]%}"
+  else
+    echo -n "%{$fg_bold[yellow]%}"
+  fi
+  echo -n "%n%{$reset_color%}"
+}
+
+# Host
+host() {
+  if [[ $SSH_CONNECTION ]]; then
+    echo -n "$(_user)%B@%b%{$fg_bold[green]%}%m%{$reset_color%}"
+  elif [[ $LOGNAME != $USER ]] || [[ $USER == 'root' ]]; then
+    echo -n "$(_user)%{$reset_color%}"
+  fi
+}
+
+# Current Directory
+directory_name() {
+  echo -n "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
+}
+
+# Git
 git_branch() {
-  echo $($git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
+  echo -n $($git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
 
 git_dirty() {
   if $(! $git status -s &> /dev/null)
   then
-    echo ""
+    echo -n ""
   else
     if [[ $($git status --porcelain) == "" ]]
     then
-      echo "on %{$fg[green]%}$(git_prompt_info)%{$reset_color%}"
+      echo -n " on %{$fg[green]%}$(git_prompt_info)%{$reset_color%}"
     else
-      echo "on %{$fg[red]%}$(git_prompt_info)%{$reset_color%}"
+      echo -n " on %{$fg[red]%}$(git_prompt_info)%{$reset_color%}"
     fi
   fi
 }
 
 git_prompt_info () {
  ref=$($git symbolic-ref HEAD 2>/dev/null) || return
-# echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
- echo "${ref#refs/heads/}"
+ echo -n "${ref#refs/heads/}"
 }
 
 unpushed () {
@@ -40,38 +63,14 @@ unpushed () {
 need_push () {
   if [[ $(unpushed) == "" ]]
   then
-    echo " "
+    echo -n " "
   else
-    echo " with %{$fg[magenta]%}unpushed%{$reset_color%} "
+    echo -n " with %{$fg[magenta]%}unpushed%{$reset_color%} "
   fi
 }
 
-ruby_version() {
-  if (( $+commands[rbenv] ))
-  then
-    echo "$(rbenv version | awk '{print $1}')"
-  fi
+export PROMPT=$'$(host)\n$(directory_name)$(git_dirty)$(need_push)\n%{$fg_bold[magenta]%}› '
 
-  # if (( $+commands[rvm-prompt] ))
-  # then
-  #   echo "$(rvm-prompt | awk '{print $1}')"
-  # fi
-}
-
-rb_prompt() {
-  if ! [[ -z "$(ruby_version)" ]]
-  then
-    echo "%{$fg[yellow]%}$(ruby_version)%{$reset_color%} "
-  else
-    echo ""
-  fi
-}
-
-directory_name() {
-  echo "%{$fg[cyan]%}%1/%\/%{$reset_color%}"
-}
-
-export PROMPT=$'\n$(rb_prompt)in $(directory_name) $(git_dirty)$(need_push)\n%{$fg[magenta]%}› '
 set_prompt () {
   export RPROMPT="%{$fg[cyan]%}%{$reset_color%}"
 }
