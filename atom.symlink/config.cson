@@ -5,6 +5,30 @@
     css_preserve_newlines: true
     general:
       _analyticsUserId: "4345a4ba-cb0c-4487-9f71-93bb15a1b99b"
+  "atom-material-ui":
+    colors:
+      abaseColor:
+        red: 126
+        green: 87
+        blue: 194
+        alpha: 1
+      accentColor:
+        red: 176
+        green: 228
+        blue: 87
+        alpha: 1
+      genAccent: true
+      predefinedColor: "Purple"
+    fonts:
+      fontSize: 14
+    tabs:
+      compactTabs: true
+      tintedTabBar: true
+    treeView:
+      blendTabs: true
+      compactList: true
+    ui:
+      panelContrast: true
   "auto-update-packages": {}
   "autocomplete-plus": {}
   "base16-syntax":
@@ -26,8 +50,12 @@
       "vendor"
     ]
     projectHome: "/Users/anne/development"
+    themes: [
+      "atom-material-ui"
+      "dracula-theme"
+    ]
   editor:
-    fontFamily: "Meslo LG M"
+    fontFamily: "Monaco"
     fontSize: 12
     invisibles: {}
     showIndentGuide: true

@@ -33,6 +33,7 @@ Plug 'tomasr/molokai'
 Plug 'junegunn/vim-emoji'
 " Plug 'altercation/vim-colors-solarized'
 Plug 'joshdick/onedark.vim'
+Plug 'dracula/vim'
 
 " Integrations
 Plug 'mileszs/ack.vim'
@@ -271,10 +272,10 @@ endif
 set nostartofline
 
 if has('gui_running')
-  set guifont=Meslo\ LG\ M\:h12 columns=80 lines=40
-  silent! colo seoul256-light
+  set guifont=Monaco:h12 columns=80 lines=40
+  silent! colo dracula 
 else
-  silent! colo seoul256
+  silent! colo dracula
 endif
 
 " }}}
