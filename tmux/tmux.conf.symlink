@@ -99,17 +99,25 @@ bind-key M-c run "screencapture -l$(osascript -e 'tell app \"iTerm\" to id of wi
 # Decoration (256-color)
 # -------------------------------------------------------------------
 set-option -g status-justify left
-set-option -g status-left '#[bg=colour72] #[bg=colour237] #[bg=colour236] #[bg=colour235]#[fg=colour185] #h #[bg=colour236] '
+# set-option -g status-left '#[bg=colour72] #[bg=colour237] #[bg=colour236] #[bg=colour235]#[fg=colour185] #h #[bg=colour236] '
+set-option -g status-left '#[bg=colour02] #[bg=colour04] #[bg=colour00] #[bg=colour00]#[fg=colour185] #h #[bg=colour05] '
 set-option -g status-left-length 32
-set-option -g status-bg colour237
-set-option -g status-right '#[bg=colour236] #[bg=colour235]#[fg=colour185] #(date "+%a %b %d %H:%M") #[bg=colour236] #[bg=colour237] #[bg=colour72] '
+# set-option -g status-bg colour237
+set-option -g status-bg colour00
+# set-option -g status-right '#[bg=colour236] #[bg=colour235]#[fg=colour185] #(date "+%a %b %d %H:%M") #[bg=colour236] #[bg=colour237] #[bg=colour72] '
+set-option -g status-right '#[bg=colour05] #[bg=colour00]#[fg=colour185] #(date "+%a %b %d %H:%M") #[bg=colour00] #[bg=colour04] #[bg=colour02] '
 set-option -g status-interval 60
 
-set-option -g pane-active-border-fg colour240
-set-option -g pane-border-fg colour238
 
-set-window-option -g window-status-format '#[bg=colour238]#[fg=colour107] #I #[bg=colour239]#[fg=colour110] #[bg=colour240]#W#[bg=colour239]#[fg=colour195]#F#[bg=colour238] '
-set-window-option -g window-status-current-format '#[bg=colour236]#[fg=colour215] #I #[bg=colour235]#[fg=colour167] #[bg=colour234]#W#[bg=colour235]#[fg=colour195]#F#[bg=colour236] '
+# set-option -g pane-active-border-fg colour240
+set-option -g pane-active-border-fg colour00
+# set-option -g pane-border-fg colour238
+set-option -g pane-border-fg colour00
+
+# set-window-option -g window-status-format '#[bg=colour238]#[fg=colour107] #I #[bg=colour239]#[fg=colour110] #[bg=colour240]#W#[bg=colour239]#[fg=colour195]#F#[bg=colour238] '
+set-window-option -g window-status-format '#[bg=colour00]#[fg=colour107] #I #[bg=colour00]#[fg=colour110] #[bg=colour00]#W#[bg=colour00]#[fg=colour195]#F#[bg=colour00] '
+# set-window-option -g window-status-format '#[bg=colour238]#[fg=colour107] #I #[bg=colour239]#[fg=colour110] #[bg=colour240]#W#[bg=colour239]#[fg=colour195]#F#[bg=colour238] '
+set-window-option -g window-status-current-format '#[bg=colour00]#[fg=colour215] #I #[bg=colour00]#[fg=colour167] #[bg=colour00]#W#[bg=colour00]#[fg=colour195]#F#[bg=colour00] '
 
 # set-window-option -g window-style 'bg=colour238'
 # set-window-option -g window-active-style 'bg=colour237'

@@ -28,10 +28,7 @@ Plug 'kien/ctrlp.vim'
 " Theme
 Plug 'reedes/vim-thematic'
 Plug 'junegunn/seoul256.vim'
-Plug 'tomasr/molokai'
-" Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'junegunn/vim-emoji'
-" Plug 'altercation/vim-colors-solarized'
 Plug 'joshdick/onedark.vim'
 Plug 'dracula/vim'
 
@@ -273,7 +270,7 @@ set nostartofline
 
 if has('gui_running')
   set guifont=Monaco:h12 columns=80 lines=40
-  silent! colo dracula 
+  silent! colo dracula
 else
   silent! colo dracula
 endif
