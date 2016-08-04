@@ -146,3 +146,9 @@ grepfzf() {
 rmd () {
   pandoc $1 | lynx -stdin
 }
+
+pdf_join() {
+  join_py="/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py"
+  read "output_file?Name of output file > "
+  "$join_py" -o $output_file $@ && open $output_file
+}

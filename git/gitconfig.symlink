@@ -34,3 +34,5 @@
 [user]
 	name = Anne Celestino
 	email = hubwub@tagspace.me
+[credential]
+	helper = osxkeychain

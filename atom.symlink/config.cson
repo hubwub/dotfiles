@@ -13,9 +13,9 @@
         blue: 194
         alpha: 1
       accentColor:
-        red: 176
-        green: 228
-        blue: 87
+        red: 0
+        green: 250
+        blue: 146
         alpha: 1
       genAccent: true
       predefinedColor: "Purple"
@@ -35,6 +35,7 @@
     scheme: "Isotope"
   "clang-format": {}
   core:
+    destroyEmptyPanes: false
     disabledPackages: [
       "background-tips"
       "exception-reporting"
@@ -52,10 +53,10 @@
     projectHome: "/Users/anne/development"
     themes: [
       "atom-material-ui"
-      "dracula-theme"
+      "one-dark-syntax"
     ]
   editor:
-    fontFamily: "Monaco"
+    fontFamily: "Inconsolata-dz"
     fontSize: 12
     invisibles: {}
     showIndentGuide: true
@@ -80,9 +81,12 @@
   "linter-csslint": {}
   "linter-flake8": {}
   minimap:
+    autoToggle: false
     plugins:
       "git-diff": true
       "git-diffDecorationsZIndex": 0
+      "minimap-autohide": true
+      "minimap-autohideDecorationsZIndex": 0
   "one-dark-ui": {}
   "release-notes":
     viewedVersion: "0.89.0"

@@ -30,7 +30,6 @@ Plug 'reedes/vim-thematic'
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'joshdick/onedark.vim'
-Plug 'dracula/vim'
 
 " Integrations
 Plug 'mileszs/ack.vim'
@@ -70,8 +69,8 @@ endif
 " BASIC SETTINGS {{{
 " ============================================================================
 
-let mapleader      = ' '
-let maplocalleader = ' '
+let mapleader      = ','
+let maplocalleader = ','
 
 set nu
 set autoindent
@@ -142,7 +141,7 @@ silent! if emoji#available()
     \ 'css':        'art',
     \ 'eruby':      'ring',
     \ 'gitcommit':  'soon',
-    \ 'go':  'car',
+    \ 'go':         'car',
     \ 'haml':       'hammer',
     \ 'help':       'angel',
     \ 'html':       'herb',
@@ -270,9 +269,9 @@ set nostartofline
 
 if has('gui_running')
   set guifont=Monaco:h12 columns=80 lines=40
-  silent! colo dracula
+  silent! colo seoul256-light
 else
-  silent! colo dracula
+  silent! colo seoul256
 endif
 
 " }}}
