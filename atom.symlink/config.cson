@@ -56,7 +56,7 @@
       "one-dark-syntax"
     ]
   editor:
-    fontFamily: "Inconsolata-dz"
+    fontFamily: "Meslo LG S"
     fontSize: 12
     invisibles: {}
     showIndentGuide: true
