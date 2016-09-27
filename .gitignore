@@ -7,8 +7,9 @@ atom.symlink/storage
 atom.symlink/themes
 atom.symlink/.apm
 git/gitconfig.local.symlink
-vim/vim.symlink/.netrwhist
-vim/vim.symlink/autoload/*
-vim/vim.symlink/bundle/*
-vim/vim.symlink/plugged/*
+vim.symlink/.netrwhist
+vim.symlink/autoload/*
+vim.symlink/plugged/*
+weechat.symlink/*.conf
+weechat.symlink/*
 .DS_Store
