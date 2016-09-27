@@ -10,4 +10,5 @@ git/gitconfig.local.symlink
 vim/vim.symlink/.netrwhist
 vim/vim.symlink/autoload/*
 vim/vim.symlink/bundle/*
+vim/vim.symlink/plugged/*
 .DS_Store
