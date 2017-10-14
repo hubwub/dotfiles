@@ -1,7 +1,5 @@
 # ⚫️ dotfiles
 
----
-
 dotfiles maintained with [GNU stow](https://www.gnu.org/software/stow/).
 
 * os: `macOS Sierra`
@@ -13,3 +11,5 @@ dotfiles maintained with [GNU stow](https://www.gnu.org/software/stow/).
 * colorscheme: `seoul256`
 * bar: `Übersicht`
 * editor: `vim`
+
+![screenshot](https://i.imgur.com/UBZeFfi.png)
