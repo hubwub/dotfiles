@@ -25,6 +25,7 @@ brew upgrade
 apps=(
   bash
   bash-completion
+  bash-git-prompt
   binutils
   chunkwm
   coreutils
@@ -42,12 +43,15 @@ apps=(
   reattach-to-user-namespace
   ripgrep
   ssh-copy-id
+  stow
   tmux
+  tree
   unar
   vim
   weechat
   wget
   wifi-password
+  z
 )
 
 coding=(
