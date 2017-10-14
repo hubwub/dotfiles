@@ -1,0 +1,12 @@
+[user]
+  email = hubwub@gmail.com
+  name = Anne Celestino
+[core]
+  editor = vim
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  ui = true
+[credential]
+  helper = osxkeychain
