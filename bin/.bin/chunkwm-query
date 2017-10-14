@@ -1,0 +1,60 @@
+#!/usr/bin/env python
+
+import socket
+import argparse
+import subprocess
+
+TCP_IP = '127.0.0.1'
+TCP_PORT = 3920
+
+ACTIVE_WINDOW_SCRIPT = """
+global frontApp, frontAppName, windowTitle
+set windowTitle to ""
+tell application "System Events"
+    set frontApp to first application process whose frontmost is true
+    set frontAppName to name of frontApp
+    tell process frontAppName
+        tell (1st window whose value of attribute "AXMain" is true)
+            set windowTitle to value of attribute "AXTitle"
+        end tell
+    end tell
+end tell
+return {frontAppName}
+"""
+
+
+def get_current_desktop():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((TCP_IP, TCP_PORT))
+        s.send(b'get _active_desktop')
+        return int(s.recv(1024))
+    except Exception:
+        return -1
+
+
+def get_current_window():
+    p = subprocess.Popen(['osascript', '-'], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    stdout, _ = p.communicate(ACTIVE_WINDOW_SCRIPT)
+    if not p.returncode:
+        return stdout
+    return '-'
+
+def parse_args():
+    parser = argparse.ArgumentParser(prog='chunkwm-query')
+    parser.add_argument('-d', '--desktop', help="query active desktop", default=False, action='store_true')
+    parser.add_argument('-w', '--window', help="query active window", default=False, action='store_true')
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    if args.desktop:
+        print(get_current_desktop())
+    elif args.window:
+        print(get_current_window())
+
+
+if __name__ == '__main__':
+    main()
