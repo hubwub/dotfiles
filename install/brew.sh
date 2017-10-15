@@ -59,11 +59,13 @@ coding=(
   cscope
   gcc
   gdb
+  go
   jq
   hugo
   llvm
   lua
   mysql
+  nvm
   perl
   postgresql
   protobuf
