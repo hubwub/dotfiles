@@ -35,6 +35,9 @@ export GOPATH=$HOME/golang
 export GOROOT=/usr/local/opt/go/libexec/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
+export PATH="${PATH}:${HOME}/.local/bin/"
+export NVM_DIR="$HOME/.nvm"
+source "/usr/local/opt/nvm/nvm.sh"
 
 export EDITOR=vim
 export LANG=en_US.UTF-8
