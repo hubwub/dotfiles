@@ -12,4 +12,6 @@ dotfiles maintained with [GNU stow](https://www.gnu.org/software/stow/).
 * bar: `Übersicht`
 * editor: `vim`
 
+Wallpaper can be found on [Unsplash](https://unsplash.com/photos/XtUd5SiX464).
+
 ![screenshot](https://i.imgur.com/UBZeFfi.png)
