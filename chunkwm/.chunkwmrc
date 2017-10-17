@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #
 # NOTE: specify the absolutepath to the directory to use when
@@ -80,7 +80,7 @@ chunkc set window_use_cgs_move           0
 
 chunkc core::unload border.so
 chunkc core::load tiling.so
-chunkc core::load ffm.so
+chunkc core::unload ffm.so
 
 
 #

@@ -32,10 +32,11 @@ export HISTTIMEFORMAT="%Y/%m/%d %H:%M:%S:   "
 
 ### global
 export GOPATH=$HOME/golang
-export GOROOT=/usr/local/opt/go/libexec/bin
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
-export PATH="${PATH}:${HOME}/.local/bin/"
+mkdir -p $GOPATH
+if [ -z "$PATH_EXPANDED" ]; then
+  export PATH=~/.bin:~/.ruby:/opt/bin:/usr/local/bin:/usr/local/share/python:$GOPATH/bin:/usr/local/opt/go/libexec/bin:$PATH
+  export PATH_EXPANDED=1
+fi
 export NVM_DIR="$HOME/.nvm"
 source "/usr/local/opt/nvm/nvm.sh"
 
