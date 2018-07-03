@@ -109,8 +109,7 @@ fzf-down() {
   fzf --height 50% "$@" --border
 }
 
-export FZF_DEFAULT_COMMAND='rg --files'
-[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 if [ -x ~/.vim/plugged/fzf.vim/bin/preview.rb ]; then
   export FZF_CTRL_T_OPTS="--preview '~/.vim/plugged/fzf.vim/bin/preview.rb {} | head -200'"
@@ -177,4 +176,9 @@ gr() {
   cut -d$'\t' -f1
 }
 
+upgrade-chunkwm() {
+    brew reinstall --HEAD chunkwm
+    codesign -fs "chunkwm-cert" $(brew --prefix chunkwm)/bin/chunkwm
+    brew services restart chunkwm
+}
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -17,7 +17,7 @@ alias gv='vim +GV +"autocmd BufWipeout <buffer> qall"'
 alias reload=". ~/.bashrc"
 
 # update
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; brew cask upgrade'
 
 # cleanup
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
@@ -41,6 +41,8 @@ alias bnumos='defaults read /System/Library/CoreServices/SystemVersion'
 # clean up launchservices to remove duplicates in the “Open With” menu
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
+# clean up launchpad
+alias lpcleanup="defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock"
 # iP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"

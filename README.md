@@ -7,8 +7,8 @@ dotfiles maintained with [GNU stow](https://www.gnu.org/software/stow/).
 * wm: `chunkwm`
 * shell: `bash`
 * terminal: `iTerm2`
-* terminal font: `Meslo LG`
-* colorscheme: `seoul256`
+* terminal font: `gohufont`
+* colorscheme: `deep-space`
 * bar: `Übersicht`
 * editor: `vim`
 

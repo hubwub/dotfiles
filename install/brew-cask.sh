@@ -10,6 +10,7 @@ brew tap caskroom/versions
 # packages to install
 apps=(
   android-file-transfer
+  discord
   firefox
   firefoxnightly
   google-backup-and-sync
@@ -24,6 +25,7 @@ apps=(
   osxfuse
   postgres
   simple-comic
+  slack
   spectacle
   steam
   transmission
@@ -39,11 +41,14 @@ fonts=(
   font-inconsolata-dz
   font-lato
   font-meslo-lg
+  font-noto-mono
   font-noto-sans
   font-noto-serif
   font-open-sans
+  font-office-code-pro
   font-roboto
   font-roboto-mono
+  font-roboto-slab
 )
 
 # install casks

@@ -39,7 +39,9 @@ apps=(
   koekeishiya/formulae/skhd
   mercurial
   neofetch
+  neovim
   pandoc
+  ranger
   reattach-to-user-namespace
   ripgrep
   ssh-copy-id

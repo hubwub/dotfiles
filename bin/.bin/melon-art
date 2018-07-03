@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Download the album art for an album on MelOn
+# Download the album art for an album on MelOn (melon.com)
 
 import argparse
 import re
@@ -13,9 +13,16 @@ def save_album_art(album_url, file_name=False):
         raise Exception("URL must be a valid MelOn album link")
 
     album_identifier = album_url.split('=')[1]
-    album_identifier_a = album_identifier[0:3]
-    album_identifier_b = album_identifier[3:5]
-    album_identifier_c = album_identifier[5:8]
+    album_identifier_length = len(str(album_identifier))
+   
+    if(album_identifier_length < 8):
+        album_identifier_path = album_identifier.zfill(8)
+    else:
+        album_identifier_path = album_identifier
+    
+    album_identifier_a = album_identifier_path[0:3]
+    album_identifier_b = album_identifier_path[3:5]
+    album_identifier_c = album_identifier_path[5:8]
 
     if file_name:
         album_art_name = file_name + ".jpg"

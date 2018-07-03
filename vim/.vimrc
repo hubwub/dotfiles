@@ -1,33 +1,52 @@
-" Vim 8 defaults
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
+
+" vim 8 defaults
 unlet! skip_defaults_vim
 silent! source $VIMRUNTIME/defaults.vim
 
 let s:darwin = has('mac')
 
-" }}}
-" ============================================================================
-" VIM-PLUG BLOCK {{{
-" ============================================================================
+" vim-plugged
 
 silent! if plug#begin('~/.vim/plugged')
-Plug 'https://github.com/altercation/vim-colors-solarized.git'
+
 if s:darwin
   let g:plug_url_format = 'git@github.com:%s.git'
 else
   let $GIT_SSL_NO_VERIFY = 'true'
 endif
 
-" Colors
+" colors / ui
 Plug 'junegunn/seoul256.vim'
-Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'arcticicestudio/nord-vim'
-Plug 'dracula/vim'
+Plug 'joshdick/onedark.vim'
+Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'chriskempson/base16-vim'
 Plug 'junegunn/vim-emoji'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
-" Edit
+if v:version >= 703
+  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+endif
+Plug 'justinmk/vim-gtfo'
+
+Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
+autocmd! User indentLine doautocmd indentLine Syntax
+
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+augroup nerd_loader
+  autocmd!
+  autocmd VimEnter * silent! autocmd! FileExplorer
+  autocmd BufEnter,BufNew *
+        \  if isdirectory(expand('<amatch>'))
+        \|   call plug#load('nerdtree')
+        \|   execute 'autocmd! nerd_loader'
+        \| endif
+augroup END
+
+" edit
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'
@@ -46,39 +65,10 @@ Plug 'tpope/vim-commentary'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'AndrewRadev/switch.vim'
 Plug 'sgur/vim-editorconfig'
 
-function! BuildYCM(info)
-  if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer --gocode-completer
-  endif
-endfunction
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
-
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-
-" Browsing
-Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
-autocmd! User indentLine doautocmd indentLine Syntax
-
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-augroup nerd_loader
-  autocmd!
-  autocmd VimEnter * silent! autocmd! FileExplorer
-  autocmd BufEnter,BufNew *
-        \  if isdirectory(expand('<amatch>'))
-        \|   call plug#load('nerdtree')
-        \|   execute 'autocmd! nerd_loader'
-        \| endif
-augroup END
-
-if v:version >= 703
-  Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-endif
-Plug 'justinmk/vim-gtfo'
-
-" Git
+" git
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-github-dashboard'
 Plug 'tpope/vim-fugitive'
@@ -87,18 +77,14 @@ if v:version >= 703
   Plug 'mhinz/vim-signify'
 endif
 
-" Programming Languages
-
-" Lint
+" language / lint
+Plug 'rhysd/vim-grammarous'
 Plug 'w0rp/ale'
 
 call plug#end()
 endif
 
-" }}}
-" ============================================================================
-" BASIC SETTINGS {{{
-" ============================================================================
+" basic settings
 
 let mapleader      = ' '
 let maplocalleader = ' '
@@ -176,7 +162,7 @@ set pastetoggle=<F9>
 set modelines=2
 set synmaxcol=1000
 
-" For MacVim
+" macvim
 set noimd
 set imi=1
 set ims=-1
@@ -191,7 +177,7 @@ if v:version >= 703
   set undodir=/tmp//,.
 endif
 
-" Shift-tab on GNU screen
+" shift-tab on gnu screen
 " http://superuser.com/questions/195794/gnu-screen-shift-tab-issue
 set t_kB=[Z
 
@@ -208,7 +194,7 @@ if exists('&colorcolumn')
   set colorcolumn=80
 endif
 
-" Keep the cursor on the same column
+" keep the cursor on the same column
 set nostartofline
 
 " FOOBAR=~/<CTRL-><CTRL-F>
@@ -219,72 +205,69 @@ if exists('&fixeol')
 endif
 
 if has('gui_running')
-  silent! colo seoul256-light
+  silent! colo deep-space 
 else
-  silent! colo seoul256
+  silent! colo deep-space 
 endif
 
-" }}}
-" ============================================================================
-" MAPPINGS {{{
-" ============================================================================
-
-" ----------------------------------------------------------------------------
-" Basic mappings
-" ----------------------------------------------------------------------------
+" basic mappings
 
 noremap <C-F> <C-D>
 noremap <C-B> <C-U>
 
-" Save
+" open new line below and above current line
+nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
+
+" save
 inoremap <C-s>     <C-O>:update<cr>
 nnoremap <C-s>     :update<cr>
 nnoremap <leader>s :update<cr>
 nnoremap <leader>w :update<cr>
 
-" Disable CTRL-A on tmux or on screen
+" disable ctrl-a on tmux or on screen
 if $TERM =~ 'screen'
   nnoremap <C-a> <nop>
   nnoremap <Leader><C-a> <C-a>
 endif
 
-" Quit
+" quit
 inoremap <C-Q>     <esc>:q<cr>
 nnoremap <C-Q>     :q<cr>
 vnoremap <C-Q>     <esc>
 nnoremap <Leader>q :q<cr>
 nnoremap <Leader>Q :qa!<cr>
 
-" Tags
+" tags
 nnoremap <C-]> g<C-]>
 nnoremap g[ :pop<cr>
 
-" Jump list (to newer position)
+" jump list (to newer position)
 nnoremap <C-p> <C-i>
 
-" <F10> | NERD Tree
+" <f10> | nerd tree
 nnoremap <F10> :NERDTreeToggle<cr>
 
-" <F11> | Tagbar
+" <f11> | tagbar
 if v:version >= 703
   inoremap <F11> <esc>:TagbarToggle<cr>
   nnoremap <F11> :TagbarToggle<cr>
   let g:tagbar_sort = 0
 endif
 
-" jk | Escaping!
+" jk | escaping
 inoremap jk <Esc>
 xnoremap jk <Esc>
 cnoremap jk <C-c>
 
-" Movement in insert mode
+" movement in insert mode
 inoremap <C-h> <C-o>h
 inoremap <C-l> <C-o>a
 inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-^> <C-o><C-^>
 
-" Make Y behave like other capitals
+" make Y behave like other capitals
 nnoremap Y y$
 
 " qq to record, Q to replay
@@ -304,9 +287,8 @@ nnoremap <silent> <leader>z :call <sid>zoom()<cr>
 " Last inserted text
 nnoremap g. :normal! `[v`]<cr><left>
 
-" ----------------------------------------------------------------------------
 " nvim
-" ----------------------------------------------------------------------------
+
 if has('nvim')
   tnoremap <a-a> <esc>a
   tnoremap <a-b> <esc>b
@@ -314,35 +296,57 @@ if has('nvim')
   tnoremap <a-f> <esc>f
 endif
 
-" ----------------------------------------------------------------------------
-" Quickfix
-" ----------------------------------------------------------------------------
+
+" quickfix
+
 nnoremap ]q :cnext<cr>zz
 nnoremap [q :cprev<cr>zz
 nnoremap ]l :lnext<cr>zz
 nnoremap [l :lprev<cr>zz
 
-" ----------------------------------------------------------------------------
-" Buffers
-" ----------------------------------------------------------------------------
+" buffers
+
 nnoremap ]b :bnext<cr>
 nnoremap [b :bprev<cr>
 
-" ----------------------------------------------------------------------------
-" Tabs
-" ----------------------------------------------------------------------------
+" tabs
+
 nnoremap ]t :tabn<cr>
 nnoremap [t :tabp<cr>
 
-" ----------------------------------------------------------------------------
-" <tab> / <s-tab> | Circular windows navigation
-" ----------------------------------------------------------------------------
+" <tab> / <s-tab> | circular windows navigation
+
 nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
 
-" ----------------------------------------------------------------------------
+" tmux
+
+function! s:tmux_send(content, dest) range
+  let dest = empty(a:dest) ? input('To which pane? ') : a:dest
+  let tempfile = tempname()
+  call writefile(split(a:content, "\n", 1), tempfile, 'b')
+  call system(printf('tmux load-buffer -b vim-tmux %s \; paste-buffer -d -b vim-tmux -t %s',
+        \ shellescape(tempfile), shellescape(dest)))
+  call delete(tempfile)
+endfunction
+
+function! s:tmux_map(key, dest)
+  execute printf('nnoremap <silent> %s "tyy:call <SID>tmux_send(@t, "%s")<cr>', a:key, a:dest)
+  execute printf('xnoremap <silent> %s "ty:call <SID>tmux_send(@t, "%s")<cr>gv', a:key, a:dest)
+endfunction
+
+call s:tmux_map('<leader>tt', '')
+call s:tmux_map('<leader>th', '.left')
+call s:tmux_map('<leader>tj', '.bottom')
+call s:tmux_map('<leader>tk', '.top')
+call s:tmux_map('<leader>tl', '.right')
+call s:tmux_map('<leader>ty', '.top-left')
+call s:tmux_map('<leader>to', '.top-right')
+call s:tmux_map('<leader>tn', '.bottom-left')
+call s:tmux_map('<leader>t.', '.bottom-right')
+
 " <tab> / <s-tab> / <c-v><tab> | super-duper-tab
-" ----------------------------------------------------------------------------
+
 function! s:can_complete(func, prefix)
   if empty(a:func)
     return 0
@@ -417,18 +421,16 @@ else
   inoremap <silent> <s-tab> <c-r>=<SID>super_duper_tab(pumvisible(), 0)<cr>
 endif
 
-" ----------------------------------------------------------------------------
-" Markdown headings
-" ----------------------------------------------------------------------------
+" markdown headings
+
 nnoremap <leader>1 m`yypVr=``
 nnoremap <leader>2 m`yypVr-``
 nnoremap <leader>3 m`^i### <esc>``4l
 nnoremap <leader>4 m`^i#### <esc>``5l
 nnoremap <leader>5 m`^i##### <esc>``6l
 
-" ----------------------------------------------------------------------------
-" Moving lines
-" ----------------------------------------------------------------------------
+" moving lines
+
 nnoremap <silent> <C-k> :move-2<cr>
 nnoremap <silent> <C-j> :move+<cr>
 nnoremap <silent> <C-h> <<
@@ -440,14 +442,14 @@ xnoremap <silent> <C-l> >gv
 xnoremap < <gv
 xnoremap > >gv
 
-" ----------------------------------------------------------------------------
-" <Leader>c Close quickfix/location window
-" ----------------------------------------------------------------------------
+
+" <leader>c Close quickfix/location window
+
 nnoremap <leader>c :cclose<bar>lclose<cr>
 
-" ----------------------------------------------------------------------------
-" Readline-style key bindings in command-line (excerpt from rsi.vim)
-" ----------------------------------------------------------------------------
+
+" readline-style key bindings in command-line (excerpt from rsi.vim)
+
 cnoremap        <C-A> <Home>
 cnoremap        <C-B> <Left>
 cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
@@ -457,9 +459,8 @@ cnoremap        <M-f> <S-Right>
 silent! exe "set <S-Left>=\<Esc>b"
 silent! exe "set <S-Right>=\<Esc>f"
 
-" ----------------------------------------------------------------------------
 " #gi / #gpi | go to next/previous indentation level
-" ----------------------------------------------------------------------------
+
 function! s:go_indent(times, dir)
   for _ in range(a:times)
     let l = line('.')
@@ -481,45 +482,31 @@ endfunction
 nnoremap <silent> gi :<c-u>call <SID>go_indent(v:count1, 1)<cr>
 nnoremap <silent> gpi :<c-u>call <SID>go_indent(v:count1, -1)<cr>
 
-" ----------------------------------------------------------------------------
 " <leader>bs | buf-search
-" ----------------------------------------------------------------------------
+
 nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
 
-" ----------------------------------------------------------------------------
-" #!! | Shebang
-" ----------------------------------------------------------------------------
+" #!! | shebang
+
 inoreabbrev <expr> #!! "#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)
 
-" }}}
-" ============================================================================
-" FUNCTIONS & COMMANDS {{{
-" ============================================================================
+" functions / commands
 
-" ----------------------------------------------------------------------------
 " :NL
-" ----------------------------------------------------------------------------
 command! -range=% -nargs=1 NL
   \ <line1>,<line2>!nl -w <args> -s '. ' | perl -pe 's/^.{<args>}..$//'
 
-" ----------------------------------------------------------------------------
 " :Chomp
-" ----------------------------------------------------------------------------
+
 command! Chomp %s/\s\+$// | normal! ``
 
-" ----------------------------------------------------------------------------
 " :Count
-" ----------------------------------------------------------------------------
 command! -nargs=1 Count execute printf('%%s/%s//gn', escape(<q-args>, '/')) | normal! ``
 
-" ----------------------------------------------------------------------------
 " :M
-" ----------------------------------------------------------------------------
-command! M execute printf('!m %s:%d', expand('%'), line('.'))
+command! M execute printf('!bundle exec m %s:%d', expand('%'), line('.'))
 
-" ----------------------------------------------------------------------------
 " :CopyRTF
-" ----------------------------------------------------------------------------
 function! s:colors(...)
   return filter(map(filter(split(globpath(&rtp, 'colors/*.vim'), "\n"),
         \                  'v:val !~ "^/usr/"'),
@@ -535,6 +522,7 @@ function! s:copy_rtf(line1, line2, ...)
   setlocal buftype=nofile bufhidden=wipe nonumber
   let &filetype = ft
   call setline(1, lines)
+  doautocmd BufNewFile filetypedetect
 
   execute 'colo' get(a:000, 0, 'seoul256-light')
   hi Normal ctermbg=NONE guibg=NONE
@@ -545,7 +533,7 @@ function! s:copy_rtf(line1, line2, ...)
 
   call tohtml#Convert2HTML(a:line1, a:line2)
   g/^\(pre\|body\) {/s/background-color: #[0-9]*; //
-  silent %write !textutil -convert rtf -textsizemultiplier 1.3 -stdin -stdout | pbcopy
+  silent %write !textutil -convert rtf -textsizemultiplier 1.3 -stdin -stdout | ruby -e 'puts STDIN.read.sub(/\\\n}$/m, "\n}")' | pbcopy
 
   bd!
   tabclose
@@ -558,9 +546,8 @@ if s:darwin
   command! -range=% -nargs=? -complete=customlist,s:colors CopyRTF call s:copy_rtf(<line1>, <line2>, <f-args>)
 endif
 
-" ----------------------------------------------------------------------------
-" :Root | Change directory to the root of the Git repository
-" ----------------------------------------------------------------------------
+" :Root | change directory to the root of the Git repository
+
 function! s:root()
   let root = systemlist('git rev-parse --show-toplevel')[0]
   if v:shell_error
@@ -572,9 +559,8 @@ function! s:root()
 endfunction
 command! Root call s:root()
 
-" ----------------------------------------------------------------------------
-" <F5> / <F6> | Run script
-" ----------------------------------------------------------------------------
+" <F5> / <F6> | run script
+
 function! s:run_this_script(output)
   let head   = getline(1)
   let pos    = stridx(head, '#!')
@@ -623,9 +609,8 @@ endfunction
 nnoremap <silent> <F5> :call <SID>run_this_script(0)<cr>
 nnoremap <silent> <F6> :call <SID>run_this_script(1)<cr>
 
-" ----------------------------------------------------------------------------
-" <F8> | Color scheme selector
-" ----------------------------------------------------------------------------
+" <F8> | color scheme selector
+
 function! s:rotate_colors()
   if !exists('s:colors')
     let s:colors = s:colors()
@@ -638,9 +623,8 @@ function! s:rotate_colors()
 endfunction
 nnoremap <silent> <F8> :call <SID>rotate_colors()<cr>
 
-" ----------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
-" ----------------------------------------------------------------------------
+
 function! s:shuffle() range
 ruby << RB
   first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
@@ -651,9 +635,8 @@ RB
 endfunction
 command! -range Shuffle <line1>,<line2>call s:shuffle()
 
-" ----------------------------------------------------------------------------
 " Syntax highlighting in code snippets
-" ----------------------------------------------------------------------------
+
 function! s:syntax_include(lang, b, e, inclusive)
   let syns = split(globpath(&rtp, "syntax/".a:lang.".vim"), "\n")
   if empty(syns)
@@ -708,9 +691,8 @@ function! s:file_type_handler()
   endif
 endfunction
 
-" ----------------------------------------------------------------------------
 " SaveMacro / LoadMacro
-" ----------------------------------------------------------------------------
+
 function! s:save_macro(name, file)
   let content = eval('@'.a:name)
   if !empty(content)
@@ -727,18 +709,16 @@ function! s:load_macro(file, name)
 endfunction
 command! -nargs=* LoadMacro call <SID>load_macro(<f-args>)
 
-" ----------------------------------------------------------------------------
-" HL | Find out syntax group
-" ----------------------------------------------------------------------------
+" HL | find out syntax group
+
 function! s:hl()
   " echo synIDattr(synID(line('.'), col('.'), 0), 'name')
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction
 command! HL call <SID>hl()
 
-" ----------------------------------------------------------------------------
 " :A
-" ----------------------------------------------------------------------------
+
 function! s:a(cmd)
   let name = expand('%:r')
   let ext = tolower(expand('%:e'))
@@ -762,9 +742,8 @@ endfunction
 command! A call s:a('e')
 command! AV call s:a('botright vertical split')
 
-" ----------------------------------------------------------------------------
-" Todo
-" ----------------------------------------------------------------------------
+" todo
+
 function! s:todo() abort
   let entries = []
   for cmd in ['git grep -niI -e TODO -e FIXME -e XXX 2> /dev/null',
@@ -785,9 +764,8 @@ function! s:todo() abort
 endfunction
 command! Todo call s:todo()
 
-" ----------------------------------------------------------------------------
-" AutoSave
-" ----------------------------------------------------------------------------
+" autoSave
+
 function! s:autosave(enable)
   augroup autosave
     autocmd!
@@ -802,16 +780,15 @@ endfunction
 
 command! -bang AutoSave call s:autosave(<bang>1)
 
-" ----------------------------------------------------------------------------
 " TX
-" ----------------------------------------------------------------------------
+
 command! -nargs=1 TX
   \ call system('tmux split-window -d -l 16 '.<q-args>)
 cnoremap !! TX<space>
+command! GP TX git push
 
-" ----------------------------------------------------------------------------
 " EX | chmod +x
-" ----------------------------------------------------------------------------
+
 command! EX if !empty(expand('%'))
          \|   write
          \|   call system('chmod +x '.expand('%'))
@@ -822,9 +799,8 @@ command! EX if !empty(expand('%'))
          \|   echohl None
          \| endif
 
-" ----------------------------------------------------------------------------
 " Profile
-" ----------------------------------------------------------------------------
+
 function! s:profile(bang)
   if a:bang
     profile pause
@@ -837,9 +813,8 @@ function! s:profile(bang)
 endfunction
 command! -bang Profile call s:profile(<bang>0)
 
-" ----------------------------------------------------------------------------
 " call LSD()
-" ----------------------------------------------------------------------------
+
 function! LSD()
   syntax clear
 
@@ -861,10 +836,8 @@ function! LSD()
   endfor
 endfunction
 
+" open FILENAME:LINE:COL
 
-" ----------------------------------------------------------------------------
-" Open FILENAME:LINE:COL
-" ----------------------------------------------------------------------------
 function! s:goto_line()
   let tokens = split(expand('%'), ':')
   if len(tokens) <= 1 || !filereadable(tokens[0])
@@ -882,10 +855,8 @@ endfunction
 
 autocmd vimrc BufNewFile * nested call s:goto_line()
 
-
-" ----------------------------------------------------------------------------
 " co? : Toggle options (inspired by unimpaired.vim)
-" ----------------------------------------------------------------------------
+
 function! s:map_change_option(...)
   let [key, opt] = a:000[0:1]
   let op = get(a:, 3, 'set '.opt.'!')
@@ -902,14 +873,10 @@ call s:map_change_option('t', 'textwidth',
 call s:map_change_option('b', 'background',
     \ 'let &background = &background == "dark" ? "light" : "dark"<bar>redraw')
 
-" }}}
-" ============================================================================
-" TEXT OBJECTS {{{
-" ============================================================================
+" text objects
 
-" ----------------------------------------------------------------------------
 " Common
-" ----------------------------------------------------------------------------
+
 function! s:textobj_cancel()
   if v:operator == 'c'
     augroup textobj_undo_empty_change
@@ -923,10 +890,9 @@ endfunction
 noremap         <Plug>(TOC) <nop>
 inoremap <expr> <Plug>(TOC) exists('#textobj_undo_empty_change')?"\<esc>":''
 
-" ----------------------------------------------------------------------------
 " ?ii / ?ai | indent-object
 " ?io       | strictly-indent-object
-" ----------------------------------------------------------------------------
+
 function! s:indent_len(str)
   return type(a:str) == 1 ? len(matchstr(a:str, '^\s*')) : 0
 endfunction
@@ -969,15 +935,13 @@ onoremap <silent> ai :<c-u>call <SID>indent_object('>=', 1, line('.'), line('.')
 xnoremap <silent> io :<c-u>call <SID>indent_object('==', 0, line("'<"), line("'>"), 0, 0)<cr>
 onoremap <silent> io :<c-u>call <SID>indent_object('==', 0, line('.'), line('.'), 0, 0)<cr>
 
-" ----------------------------------------------------------------------------
-" <Leader>I/A | Prepend/Append to all adjacent lines with same indentation
-" ----------------------------------------------------------------------------
+" <leader>I/A | prepend/append to all adjacent lines with same indentation
+
 nmap <silent> <leader>I ^vio<C-V>I
 nmap <silent> <leader>A ^vio<C-V>$A
 
-" ----------------------------------------------------------------------------
 " ?i_ ?a_ ?i. ?a. ?i, ?a, ?i/
-" ----------------------------------------------------------------------------
+
 function! s:between_the_chars(incll, inclr, char, vis)
   let cursor = col('.')
   let line   = getline('.')
@@ -1016,21 +980,18 @@ for [s:c, s:l] in items({'_': 0, '.': 0, ',': 0, '/': 1, '-': 0})
   execute printf("omap <silent> a%s :<C-U>call <SID>between_the_chars(%s, 1, '%s', 0)<CR><Plug>(TOC)", s:c, s:l, s:c)
 endfor
 
-" ----------------------------------------------------------------------------
 " ?ie | entire object
-" ----------------------------------------------------------------------------
+
 xnoremap <silent> ie gg0oG$
 onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<CR>
 
-" ----------------------------------------------------------------------------
 " ?il | inner line
-" ----------------------------------------------------------------------------
+
 xnoremap <silent> il <Esc>^vg_
 onoremap <silent> il :<C-U>normal! ^vg_<CR>
 
-" ----------------------------------------------------------------------------
 " ?i# | inner comment
-" ----------------------------------------------------------------------------
+
 function! s:inner_comment(vis)
   if synIDattr(synID(line('.'), col('.'), 0), 'name') !~? 'comment'
     call s:textobj_cancel()
@@ -1061,9 +1022,8 @@ endfunction
 xmap <silent> i# :<C-U>call <SID>inner_comment(1)<CR><Plug>(TOC)
 omap <silent> i# :<C-U>call <SID>inner_comment(0)<CR><Plug>(TOC)
 
-" ----------------------------------------------------------------------------
 " ?ic / ?iC | Blockwise column object
-" ----------------------------------------------------------------------------
+
 function! s:inner_blockwise_column(vmode, cmd)
   if a:vmode == "\<C-V>"
     let [pvb, pve] = [getpos("'<"), getpos("'>")]
@@ -1109,23 +1069,17 @@ onoremap <silent> iC :<C-U>call   <SID>inner_blockwise_column('',           'iW'
 onoremap <silent> ac :<C-U>call   <SID>inner_blockwise_column('',           'aw')<CR>
 onoremap <silent> aC :<C-U>call   <SID>inner_blockwise_column('',           'aW')<CR>
 
-" ----------------------------------------------------------------------------
 " ?i<shift>-` | Inside ``` block
-" ----------------------------------------------------------------------------
+
 xnoremap <silent> i~ g_?^\s*```<cr>jo/^\s*```<cr>kV:<c-u>nohl<cr>gv
 xnoremap <silent> a~ g_?^\s*```<cr>o/^\s*```<cr>V:<c-u>nohl<cr>gv
 onoremap <silent> i~ :<C-U>execute "normal vi~"<cr>
 onoremap <silent> a~ :<C-U>execute "normal va~"<cr>
 
+" plugins
 
-" }}}
-" ============================================================================
-" PLUGINS {{{
-" ============================================================================
-
-" ----------------------------------------------------------------------------
 " vim-plug extension
-" ----------------------------------------------------------------------------
+
 function! s:plug_gx()
   let line = getline('.')
   let sha  = matchstr(line, '^  \X*\zs\x\{7,9}\ze ')
@@ -1179,33 +1133,28 @@ autocmd vimrc FileType vim-plug call s:setup_extra_keys()
 let g:plug_window = '-tabnew'
 let g:plug_pwindow = 'vertical rightbelow new'
 
-" ----------------------------------------------------------------------------
 " MatchParen delay
-" ----------------------------------------------------------------------------
+
 let g:matchparen_insert_timeout=5
 
-" ----------------------------------------------------------------------------
 " vim-commentary
-" ----------------------------------------------------------------------------
+
 map  gc  <Plug>Commentary
 nmap gcc <Plug>CommentaryLine
 
-" ----------------------------------------------------------------------------
 " vim-fugitive
-" ----------------------------------------------------------------------------
+
 nmap     <Leader>g :Gstatus<CR>gg<c-n>
 nnoremap <Leader>d :Gdiff<CR>
 
-" ----------------------------------------------------------------------------
 " vim-after-object
-" ----------------------------------------------------------------------------
+
 silent! if has_key(g:plugs, 'vim-after-object')
   autocmd VimEnter * silent! call after_object#enable('=', ':', '#', ' ', '|')
 endif
 
-" ----------------------------------------------------------------------------
 " <Enter> | vim-easy-align
-" ----------------------------------------------------------------------------
+
 let g:easy_align_delimiters = {
 \ '>': { 'pattern': '>>\|=>\|>' },
 \ '\': { 'pattern': '\\' },
@@ -1241,43 +1190,39 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 nmap gaa ga_
 
-xmap <Leader><Enter>   <Plug>(LiveEasyAlign)
+xmap <Leader>ga   <Plug>(LiveEasyAlign)
 " nmap <Leader><Leader>a <Plug>(LiveEasyAlign)
 
 " inoremap <silent> => =><Esc>mzvip:EasyAlign/=>/<CR>`z$a<Space>
 
-" ----------------------------------------------------------------------------
 " vim-github-dashboard
-" ----------------------------------------------------------------------------
 let g:github_dashboard = { 'username': 'hubwub' }
 
-" ----------------------------------------------------------------------------
 " indentLine
-" ----------------------------------------------------------------------------
+
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#616161'
 
-" ----------------------------------------------------------------------------
 " vim-signify
-" ----------------------------------------------------------------------------
+
 let g:signify_vcs_list = ['git']
 let g:signify_skip_filetype = { 'journal': 1 }
+let g:signify_sign_add          = '│'
+let g:signify_sign_change       = '│'
+let g:signify_sign_changedelete = '│'
 
-" ----------------------------------------------------------------------------
 " vim-slash
-" ----------------------------------------------------------------------------
+
 if has('timers') && !has('nvim')
   noremap <expr> <plug>(slash-after) slash#blink(2, 50)
 endif
 
-" ----------------------------------------------------------------------------
 " vim-emoji :dog: :cat: :rabbit:!
-" ----------------------------------------------------------------------------
+
 command! -range EmojiReplace <line1>,<line2>s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
 
-" ----------------------------------------------------------------------------
 " goyo.vim + limelight.vim
-" ----------------------------------------------------------------------------
+
 let g:limelight_paragraph_span = 1
 let g:limelight_priority = -1
 
@@ -1310,18 +1255,19 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 nnoremap <Leader>G :Goyo<CR>
 
-" ----------------------------------------------------------------------------
-" ALE
-" ----------------------------------------------------------------------------
-let g:ale_linters = {'java': [], 'yaml': [], 'scala': []}
+" ale
+
+let g:ale_linters = {'java': [], 'yaml': [], 'scala': [], 'clojure': []}
 let g:ale_fixers = {'ruby': ['rubocop']}
 let g:ale_lint_delay = 1000
+let g:ale_sign_warning = '──'
+let g:ale_sign_error = '══'
+
 nmap ]a <Plug>(ale_next_wrap)
 nmap [a <Plug>(ale_previous_wrap)
 
-" ----------------------------------------------------------------------------
 " gv.vim / gl.vim
-" ----------------------------------------------------------------------------
+
 function! s:gv_expand()
   let line = getline('.')
   GV --name-status
@@ -1331,23 +1277,27 @@ endfunction
 
 autocmd! FileType GV nnoremap <buffer> <silent> + :call <sid>gv_expand()<cr>
 
-" ----------------------------------------------------------------------------
 " undotree
-" ----------------------------------------------------------------------------
+
 let g:undotree_WindowLayout = 2
 nnoremap U :UndotreeToggle<CR>
 
-" ----------------------------------------------------------------------------
+" switch.vim
+
+let g:switch_mapping = '-'
+let g:switch_custom_definitions = [
+\   ['MON', 'TUE', 'WED', 'THU', 'FRI']
+\ ]
+
 " splitjoin
-" ----------------------------------------------------------------------------
+
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
 nnoremap gss :SplitjoinSplit<cr>
 nnoremap gsj :SplitjoinJoin<cr>
 
-" ----------------------------------------------------------------------------
 " vimawesome.com
-" ----------------------------------------------------------------------------
+
 function! VimAwesomeComplete() abort
   let prefix = matchstr(strpart(getline('.'), 0, col('.') - 1), '[.a-zA-Z0-9_/-]*$')
   echohl WarningMsg
@@ -1389,21 +1339,16 @@ endfunction
 
 autocmd vimrc FileType vim inoremap <buffer> <c-x><c-v> <c-r>=VimAwesomeComplete()<cr>
 
-" ----------------------------------------------------------------------------
-" YCM
-" ----------------------------------------------------------------------------
-autocmd vimrc FileType c,cpp,go nnoremap <buffer> ]d :YcmCompleter GoTo<CR>
-autocmd vimrc FileType c,cpp    nnoremap <buffer> K  :YcmCompleter GetType<CR>
-
-" }}}
-" ============================================================================
-" FZF {{{
-" ============================================================================
+" fzf
 
 if has('nvim') || has('gui_running')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
-  " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
+
+" Hide statusline of terminal buffer
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -1427,6 +1372,7 @@ command! -bang -nargs=? -complete=dir Files
 nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
 nnoremap <silent> <Leader>C        :Colors<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
+nnoremap <silent> <Leader>l        :Lines<CR>
 nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
 nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
 xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
@@ -1445,7 +1391,7 @@ nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
-function! s:plugs_sink(line)
+function! s:plug_help_sink(line)
   let dir = g:plugs[a:line].dir
   for pat in ['doc/*.txt', 'README.md']
     let match = get(split(globpath(dir, pat), "\n"), 0, '')
@@ -1459,19 +1405,13 @@ function! s:plugs_sink(line)
 endfunction
 
 command! PlugHelp call fzf#run(fzf#wrap({
-  \ 'source':  sort(keys(g:plugs)),
-  \ 'sink':    function('s:plugs_sink')}))
+  \ 'source': sort(keys(g:plugs)),
+  \ 'sink':   function('s:plug_help_sink')}))
 
-" }}}
-" ============================================================================
-" AUTOCMD {{{
-" ============================================================================
+" AUTOCMD
 
 augroup vimrc
   au BufWritePost vimrc,.vimrc nested if expand('%') !~ 'fugitive' | source % | endif
-
-  " IndentLines
-  au FileType slim IndentLinesEnable
 
   " File types
   au BufNewFile,BufRead *.icc               set filetype=cpp
@@ -1507,9 +1447,8 @@ augroup vimrc
   endif
 augroup END
 
-" ----------------------------------------------------------------------------
-" Help in new tabs
-" ----------------------------------------------------------------------------
+" help in new tabs
+
 function! s:helptab()
   if &buftype == 'help'
     wincmd T
@@ -1518,15 +1457,9 @@ function! s:helptab()
 endfunction
 autocmd vimrc BufEnter *.txt call s:helptab()
 
+" local vimrc
 
-" }}}
-" ============================================================================
-" LOCAL VIMRC {{{
-" ============================================================================
 let s:local_vimrc = fnamemodify(resolve(expand('<sfile>')), ':p:h').'/vimrc-extra'
 if filereadable(s:local_vimrc)
   execute 'source' s:local_vimrc
 endif
-
-" }}}
-" ============================================================================
