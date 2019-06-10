@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-COMPUTER_NAME="meditations"
+COMPUTER_NAME="binary"
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -122,12 +122,14 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 # Disable hibernation (speeds up entering sleep mode)
 sudo pmset -a hibernatemode 0
 
+# Post macOS High Sierra: SIP does not allow for this functionality
+# However, upon restart the sleepimage is deleted
 # Remove the sleep image file to save disk space
-sudo rm /private/var/vm/sleepimage
+# sudo rm /private/var/vm/sleepimage
 # Create a zero-byte file instead…
-sudo touch /private/var/vm/sleepimage
+# sudo touch /private/var/vm/sleepimage
 # …and make sure it can’t be rewritten
-sudo chflags uchg /private/var/vm/sleepimage
+# sudo chflags uchg /private/var/vm/sleepimage
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -178,10 +180,13 @@ defaults write com.apple.screencapture location -string "${HOME}/media/screensho
 defaults write com.apple.screencapture type -string "png"
 
 # Disable shadow in screenshots
-defaults write com.apple.screencapture disable-shadow -bool false
+defaults write com.apple.screencapture disable-shadow -bool true 
 
 # Enable HiDPI display modes (requires restart)
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+
+# Disable thumbnail preview when taking a screenshot
+defaults write com.apple.screencapture show-thumbnail -bool false
 
 ###############################################################################
 # Finder                                                                      #
@@ -296,8 +301,8 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 # Enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
-# Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 24
+# Set the icon size of Dock items to 16/24/32 pixels
+defaults write com.apple.dock tilesize -int 16 
 
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
@@ -336,7 +341,7 @@ defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0
 
 # Automatically hide and show the Dock
-defaults write com.apple.dock autohide -bool false
+defaults write com.apple.dock autohide -bool true 
 
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
@@ -513,7 +518,7 @@ sudo mdutil -E / > /dev/null
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
+# hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -590,6 +595,10 @@ defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool t
 
 # Disable signing emails by default
 defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault -bool false
+
+# Fix font rendering on Mojave
+# https://angristan.xyz/how-to-fix-font-rendering-macos-10-14-mojave/
+defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
 
 ###############################################################################
 # Kill affected applications                                                  #

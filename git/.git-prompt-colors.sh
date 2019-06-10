@@ -22,20 +22,20 @@ override_git_prompt_colors() {
   GIT_PROMPT_UPSTREAM="${ResetColor}"
 
   # Use yellow for the current branch
-  GIT_PROMPT_BRANCH="${Yellow}"
+  GIT_PROMPT_BRANCH="${Cyan}"
 
   # Use red and green for behind and ahead origin
-  GIT_PROMPT_SYMBOLS_BEHIND="${Red} 🌔 "
-  GIT_PROMPT_SYMBOLS_AHEAD="${Blue} 🌖 "
+  GIT_PROMPT_SYMBOLS_BEHIND="${Red}❮❮"
+  GIT_PROMPT_SYMBOLS_AHEAD="${Cyan}❯❯"
 
   # Add a few emojis to make it fun!
-  GIT_PROMPT_STAGED="${Yellow} ☀️ "
-  GIT_PROMPT_CONFLICTS="${Red} 💥 "
-  GIT_PROMPT_CHANGED="${Yellow} 🌑 "
-  GIT_PROMPT_UNTRACKED="🌟 "
-  GIT_PROMPT_STASHED="${Yellow} 🌤 " # A lot nicer than the default flag
-  GIT_PROMPT_CLEAN="${ResetColor} 🌕"
-  GIT_PROMPT_SYMBOLS_NO_REMOTE_TRACKING=" 🔒 " # Displayed for untracked branches
+  GIT_PROMPT_STAGED="${Green}●"
+  GIT_PROMPT_CHANGED="${Yellow}●"
+  GIT_PROMPT_UNTRACKED="${Red}●"
+  GIT_PROMPT_CONFLICTS="${Magenta}✭"
+  GIT_PROMPT_STASHED="${Cyan}✭" # A lot nicer than the default flag
+  GIT_PROMPT_CLEAN="${ResetColor}"
+  GIT_PROMPT_SYMBOLS_NO_REMOTE_TRACKING="${Red}✭" # Displayed for untracked branches
 
   # Skip the default suffix
   GIT_PROMPT_SUFFIX=" "

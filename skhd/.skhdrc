@@ -41,10 +41,10 @@ shift + alt - y : chunkc tiling::desktop --mirror vertical
 shift + alt - space : chunkc tiling::window --toggle float
 
 # make floating window fullscreen
-shift + alt - a  : chunkc tiling::window --grid-layout 1:1:0:0:1:1
+shift + alt - f  : chunkc tiling::window --grid-layout 1:1:0:0:1:1
 
-# make floating window fill center
-shift + alt - f  : chunkc tiling::window --grid-layout 4:4:1:1:2:2
+# make floating window fill centers
+shift + alt - a  : chunkc tiling::window --grid-layout 4:4:1:1:2:2
 
 # make floating window left-half of screen
 shift + alt - s  : chunkc tiling::window --grid-layout 1:2:0:0:1:1

@@ -30,6 +30,7 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 # hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+alias resetwal="rm ~/Library/Application\ Support/Dock/desktoppicture.db"
 
 # disable/enable spotlight
 alias spotoff="sudo mdutil -a -i off"

@@ -66,33 +66,38 @@ if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
 fi
 
 if [ "$PLATFORM" = Linux ]; then
-  PS1="\[\e[0;36m\]\w \[\e[1;31m\]> \[\e[1;32m\]> \[\e[1;33m\]> \[\e[0m\]"
+  PS1="\[\e[0;36m\]\w \n\[\e[0;32m\]> \[\e[0m\]"
 else
   ### git-prompt
   __git_ps1() { :;}
   if [ -e ~/.git-prompt.sh ]; then
     source ~/.git-prompt.sh
   fi
-  PS1='\[\e[0;36m\]\w \[\e[1;30m\]$(__git_ps1)\[\e[1;31m\]> \[\e[1;32m\]> \[\e[1;33m\]> \[\e[0m\]'
+  PS1='\[\e[0;36m\]\w \n\[\e[0;30m\]$(__git_ps1)\[\e[0;32m\]> \[\e[0m\]'
 fi
 
 GIT_PROMPT_ONLY_IN_REPO=1 # Use the default prompt when not in a git repo.
 GIT_PROMPT_FETCH_REMOTE_STATUS=0 # Avoid fetching remote status
 GIT_PROMPT_SHOW_UPSTREAM=0 # Don't display upstream tracking branch
 GIT_SHOW_UNTRACKED_FILES=no # Don't count untracked files (no, normal, all)
+GIT_PROMPT_SHOW_CHANGED_FILES_COUNT=0 # Don't print the number of changed files
 
 miniprompt() {
   unset PROMPT_COMMAND
-  PS1="\[\e[38;5;168m\]> \[\e[0m\]"
+  PS1="\[\e[0;32m\]> \[\e[0m\]"
 }
 
 ### z integration
-source "$BASE/z.sh"
-unalias z 2> /dev/null
-z() {
-  [ $# -gt 0 ] && _z "$*" && return
-  cd "$(_z -l 2>&1 | fzf --height 40% --reverse --inline-info +s --tac --query "$*" | sed 's/^[0-9,.]* *//')"
-}
+# Move next only if `homebrew` is installed
+if command -v brew >/dev/null 2>&1; then
+	# Load rupa's z if installed
+	[ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
+fi
+
+#z() {
+#  [ $# -gt 0 ] && _z "$*" && return
+#  cd "$(_z -l 2>&1 | fzf --height 40% --reverse --inline-info +s --tac --query "$*" | sed 's/^[0-9,.]* *//')"
+#}
 
 ### fzf (https://github.com/junegunn/fzf)
 fd() {

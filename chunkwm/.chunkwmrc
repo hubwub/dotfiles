@@ -2,14 +2,14 @@
 
 chunkc core::log_level error
 chunkc core::plugin_dir ~/.chunkwm_plugins
-chunkc core::hotload 1
+chunkc core::hotload 0
 
 chunkc set global_desktop_mode           monocle
-chunkc set global_desktop_offset_top     30
-chunkc set global_desktop_offset_bottom  30
-chunkc set global_desktop_offset_left    30
-chunkc set global_desktop_offset_right   30
-chunkc set global_desktop_offset_gap     15
+chunkc set global_desktop_offset_top     16
+chunkc set global_desktop_offset_bottom  32
+chunkc set global_desktop_offset_left    16
+chunkc set global_desktop_offset_right   16
+chunkc set global_desktop_offset_gap     8 
 
 chunkc set desktop_padding_step_size     10.0
 chunkc set desktop_gap_step_size         5.0
@@ -26,4 +26,4 @@ chunkc set window_region_locked          1
 
 chunkc core::load tiling.so
 chunkc core::unload border.so
-chunkc core::load ffm.so
+chunkc core::unload ffm.so
