@@ -182,10 +182,10 @@ let g:currentmode={
             \ '!'  : 'SHELL ',
             \ 't'  : 'TERMINAL '}
 
-hi PrimaryBlock       ctermfg=0    ctermbg=2
+hi PrimaryBlock       ctermfg=0    ctermbg=4
 hi SecondaryBlock     ctermfg=0    ctermbg=2
 hi Blanks             ctermfg=2    ctermbg=0
-highlight EndOfBuffer ctermfg=black ctermbg=black
+highlight EndOfBuffer ctermfg=0    ctermbg=0
 
 set statusline=
 set statusline+=%#PrimaryBlock#

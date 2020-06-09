@@ -6,7 +6,7 @@ chunkc core::hotload 0
 
 chunkc set global_desktop_mode           monocle
 chunkc set global_desktop_offset_top     16
-chunkc set global_desktop_offset_bottom  32
+chunkc set global_desktop_offset_bottom  16
 chunkc set global_desktop_offset_left    16
 chunkc set global_desktop_offset_right   16
 chunkc set global_desktop_offset_gap     8 

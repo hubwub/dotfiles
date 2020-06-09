@@ -17,7 +17,6 @@ fi
 brew tap homebrew/bundle
 brew tap homebrew/core
 brew tap homebrew/services
-brew tap crisidev/homebrew-chunkwm
 
 # upgrade any existing/installed formulae
 brew upgrade
@@ -26,8 +25,9 @@ apps=(
   bash
   bash-completion
   bash-git-prompt
+  bat
   binutils
-  chunkwm
+  certbot
   coreutils
   findutils
   git
@@ -36,7 +36,7 @@ apps=(
   hr
   httpie
   hub
-  koekeishiya/formulae/skhd
+  libarchive
   mercurial
   neofetch
   neovim
@@ -46,11 +46,11 @@ apps=(
   ripgrep
   ssh-copy-id
   stow
+  svn
   tmux
   tree
   unar
   vim
-  weechat
   wget
   wifi-password
   z
@@ -63,24 +63,22 @@ coding=(
   gdb
   go
   jq
-  hugo
   llvm
-  lua
   mysql
   nvm
-  perl
   postgresql
   protobuf
   python
   python3
   rbenv
-  ruby
+  ruby-build
 )
 
 media=(
   faad2
   ffmpeg
   libav
+  streamlink
   youtube-dl
 )
 
@@ -91,7 +89,3 @@ brew install "${media[@]}"
 
 # remove outdated versions from the cellar
 brew cleanup
-
-# start chunkwm and khd by default
-brew services start koekeishiya/formulae/skhd
-brew services restart crisidev/chunkwm/chunkwm

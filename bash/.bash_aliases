@@ -17,7 +17,8 @@ alias gv='vim +GV +"autocmd BufWipeout <buffer> qall"'
 alias reload=". ~/.bashrc"
 
 # update
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; brew cask upgrade'
+alias mac-update='sudo softwareupdate -i -a'
+alias brew-update='brew update; brew upgrade; brew cask upgrade; brew cleanup'
 
 # cleanup
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"

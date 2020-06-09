@@ -31,6 +31,7 @@ export HISTTIMEFORMAT="%Y/%m/%d %H:%M:%S:   "
 [ -z "$TMPDIR" ] && TMPDIR=/tmp
 
 ### global
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export GOPATH=$HOME/golang
 mkdir -p $GOPATH
 if [ -z "$PATH_EXPANDED" ]; then
@@ -39,12 +40,15 @@ if [ -z "$PATH_EXPANDED" ]; then
 fi
 export NVM_DIR="$HOME/.nvm"
 source "/usr/local/opt/nvm/nvm.sh"
+source "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
 
 export EDITOR=vim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 [ "$PLATFORM" = 'Darwin' ] ||
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.:/usr/local/lib
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 ### mac os
 export COPYFILE_DISABLE=true
@@ -180,10 +184,3 @@ gr() {
     --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
   cut -d$'\t' -f1
 }
-
-upgrade-chunkwm() {
-    brew reinstall --HEAD chunkwm
-    codesign -fs "chunkwm-cert" $(brew --prefix chunkwm)/bin/chunkwm
-    brew services restart chunkwm
-}
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

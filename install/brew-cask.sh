@@ -3,9 +3,9 @@
 # install cask and applications needed
 
 # install cask
-brew tap caskroom/cask
-brew tap caskroom/fonts
-brew tap caskroom/versions
+brew tap homebrew/cask
+brew tap homebrew/cask-fonts
+brew tap homebrew/cask-versions
 
 # packages to install
 apps=(
@@ -13,56 +13,55 @@ apps=(
   authy
   blockblock
   caprine
+  coconutbattery
+  db-browser-for-sqlite
+  do-not-disturb
   firefox
-  firefoxnightly
+  firefox-nightly
   fontforge
   google-backup-and-sync
-  google-chrome
   google-chrome-canary
   gpg-suite
-  iina
   iterm2-nightly
   java
   keepassxc
   keybase
+  keycastr
   kid3
   kindle
-  kitty
+  knockknock
   lulu
+  netiquette
   numi
   omnidisksweeper
   osxfuse
   oversight
+  pomotroid
   postgres
   postman
-  r-app
-  simple-comic
-  soundflower
-  spectacle
+  ransomwhere
+  rectangle
+  reikey
+  slack
+  taskexplorer
   transmission
-  ubersicht
   visual-studio-code
   vlc
+  whatsyoursign
   xquartz
 )
 
 fonts=(
   font-anka-coder
-  font-dejavu-sans
-  font-droid-sans
-  font-droid-sans-mono
   font-fira-code
   font-fira-mono
   font-fira-sans
   font-go
-  font-go-mono
   font-inconsolata
-  font-inconsolata-dz
   font-iosevka
   font-lato
   font-libre-franklin
   font-lora
-  font-m-plus
   font-merriweather
   font-merriweather-sans
   font-meslo-lg
@@ -84,12 +83,8 @@ fonts=(
   font-roboto-mono
   font-roboto-slab
   font-source-sans-pro
-  font-yanone-kaffeesatz
 )
 
 # install casks
 brew cask install "${apps[@]}"
 brew cask install "${fonts[@]}"
-
-# cleanup casks
-brew cask cleanup
