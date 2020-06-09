@@ -2,7 +2,7 @@
 
 dotfiles maintained with [GNU stow](https://www.gnu.org/software/stow/).
 
-* os: `macOS Mojave`
+* os: `macOS Catalina`
 * model: `MacBook Air (13-inch, Early 2014)`
 * wm: `chunkwm`
 * shell: `bash`
